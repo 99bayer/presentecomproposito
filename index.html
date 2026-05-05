@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presente com Propósito · Cerâmicas Artesanais</title>
+  <meta name="description" content="Cerâmicas artesanais pintadas à mão, únicas e personalizadas. Encomende pelo WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#FAF7F4;--warm:#F4EDE4;--warmer:#EDE0D2;
+      --border:#E0D4C5;--border2:#D4C5B0;
+      --ink:#2C2218;--ink2:#6B5744;--ink3:#A08878;--ink4:#C4B0A0;
+      --sage:#7A9478;--sage2:#5E7A5C;--surf:#FFFFFF;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+    /* ── NAV ── */
+    nav{
+      background:var(--bg);border-bottom:0.5px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 24px;height:58px;position:sticky;top:0;z-index:50;
+    }
+    .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+    .logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:0.16em;color:var(--ink);text-transform:uppercase}
+    .logo-sub{font-size:7px;letter-spacing:0.26em;color:var(--ink3);text-transform:uppercase}
+    .nav-side{width:60px;display:flex;align-items:center}
+    .nav-side.right{justify-content:flex-end}
+    .nav-icon{background:none;border:none;cursor:pointer;font-size:13px;color:var(--ink2);padding:4px;line-height:1}
+
+    /* ── HERO ── */
+    .hero{position:relative;overflow:hidden;background:var(--warm)}
+    .hero-inner{display:grid;grid-template-columns:1fr 1fr;min-height:280px}
+    .hero-left{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .hero-eyebrow{font-size:8px;letter-spacing:0.26em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .hero-eyebrow::before{content:'';display:block;width:20px;height:0.5px;background:var(--border2)}
+    .hero-h{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:16px}
+    .hero-h em{font-style:italic;color:var(--ink2)}
+    .hero-p{font-size:11px;color:var(--ink3);line-height:1.85;font-weight:300;margin-bottom:24px;max-width:280px}
+    .btn-hero{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border:0.5px solid var(--ink2);background:transparent;color:var(--ink2);font-size:9px;font-family:'Raleway',sans-serif;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+    .btn-hero:hover{background:var(--ink2);color:var(--bg)}
+    .hero-right{background:var(--warmer);border-left:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .hero-deco{position:absolute;border-radius:50%;border:0.5px solid var(--border2)}
+    .hero-img{
+      position:relative;z-index:2;width:100%;height:100%;
+      object-fit:cover;
+    }
+    .hero-img-placeholder{font-size:80px;position:relative;z-index:2;filter:drop-shadow(0 4px 16px rgba(100,60,20,.1))}
+
+    /* ── STRIP ── */
+    .strip{border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);background:var(--surf);display:flex;align-items:center;justify-content:center;gap:20px;padding:12px 20px;overflow-x:auto}
+    .strip-item{font-size:8px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;display:flex;align-items:center;gap:7px}
+    .s-dot{width:3px;height:3px;border-radius:50%;background:var(--border2);flex-shrink:0}
+
+    /* ── SECTION HEADER ── */
+    .sec-hdr{text-align:center;padding:44px 24px 0}
+    .sec-ey{font-size:8px;letter-spacing:0.26em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+    .sec-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--ink);line-height:1.2}
+    .sec-title em{font-style:italic}
+    .sec-rule{width:32px;height:0.5px;background:var(--border2);margin:14px auto 0}
+
+    /* ── FILTER ── */
+    .filter-row{display:flex;align-items:center;justify-content:center;gap:0;padding:26px 20px 0;flex-wrap:wrap;row-gap:6px}
+    .ftab{padding:7px 18px;font-size:8px;letter-spacing:0.16em;text-transform:uppercase;border:0.5px solid var(--border);background:transparent;color:var(--ink3);cursor:pointer;font-family:'Raleway',sans-serif;transition:all .2s;margin-right:-0.5px}
+    .ftab:first-child{border-radius:2px 0 0 2px}
+    .ftab:last-child{border-radius:0 2px 2px 0;margin-right:0}
+    .ftab.on{background:var(--ink);border-color:var(--ink);color:var(--bg);z-index:1;position:relative}
+    .ftab:hover:not(.on){background:var(--warm);color:var(--ink2);z-index:1;position:relative}
+
+    /* ── GRID ── */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:22px 0 0}
+    .grid>*{background:var(--bg)}
+    .loading-state{grid-column:1/-1;padding:60px;text-align:center;background:var(--bg)}
+    .loading-state p{font-size:11px;color:var(--ink3);letter-spacing:0.1em}
+    .empty-state{grid-column:1/-1;padding:60px;text-align:center;background:var(--bg)}
+    .empty-state p{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--ink3);font-style:italic}
+
+    /* ── CARD ── */
+    .card{display:flex;flex-direction:column;cursor:pointer;transition:background .2s}
+    .card:hover{background:var(--surf)}
+    .card.off{opacity:0.35;pointer-events:none}
+    .card-img{aspect-ratio:3/4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .card-img-bg{position:absolute;inset:0;transition:transform .5s ease}
+    .card:hover .card-img-bg{transform:scale(1.04)}
+    .card-photo{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .5s ease}
+    .card:hover .card-photo{transform:scale(1.04)}
+    .card-emoji{position:relative;z-index:2;font-size:52px;filter:drop-shadow(0 4px 14px rgba(100,60,20,.12))}
+    .c-ring{position:absolute;border-radius:50%;border:0.5px solid var(--border2);z-index:1}
+    .unavail-pill{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:3;background:rgba(250,247,244,0.92);font-size:7px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);padding:4px 12px;border:0.5px solid var(--border);white-space:nowrap}
+    .card-hover-cta{position:absolute;inset:0;z-index:4;background:rgba(250,247,244,0);display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;transition:background .3s}
+    .card:hover .card-hover-cta{background:rgba(250,247,244,0.72)}
+    .hover-pill{font-size:8px;letter-spacing:0.14em;text-transform:uppercase;border:0.5px solid var(--ink2);padding:6px 14px;color:var(--ink2);background:var(--bg);opacity:0;transition:opacity .25s}
+    .card:hover .hover-pill{opacity:1}
+    .card-body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+    .card-cat{font-size:7px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+    .card-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:6px}
+    .card-desc{font-size:10px;color:var(--ink3);line-height:1.75;font-weight:300;flex:1;margin-bottom:12px}
+    .card-action{display:flex;align-items:center;justify-content:space-between;gap:6px}
+    .btn-wpp{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 10px;background:var(--sage);color:#fff;border:none;font-size:9px;font-family:'Raleway',sans-serif;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+    .btn-wpp:hover{background:var(--sage2)}
+    .card-link{font-size:9px;color:var(--ink3);letter-spacing:0.06em;background:none;border:none;cursor:pointer;transition:color .2s;font-family:'Raleway',sans-serif;white-space:nowrap}
+    .card-link:hover{color:var(--ink)}
+
+    /* ── DETAIL ── */
+    .det-nav{background:var(--bg);border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:48px}
+    .bc{font-size:8px;letter-spacing:0.12em;color:var(--ink3)}
+    .bc b{color:var(--ink);font-weight:400}
+    .back{background:none;border:none;cursor:pointer;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;display:flex;align-items:center;gap:5px;transition:color .2s}
+    .back:hover{color:var(--ink)}
+    .det-body{display:grid;grid-template-columns:1fr 1fr}
+    .det-l{background:var(--warm);display:flex;align-items:center;justify-content:center;min-height:400px;position:relative;overflow:hidden;border-right:0.5px solid var(--border)}
+    .det-deco{position:absolute;border-radius:50%;border:0.5px solid var(--border2)}
+    .det-photo{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+    .det-emoji{font-size:100px;position:relative;z-index:2;filter:drop-shadow(0 8px 24px rgba(100,60,20,.13))}
+    .det-r{padding:40px 36px;display:flex;flex-direction:column}
+    .det-ey{font-size:8px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+    .det-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:4px}
+    .det-title em{font-style:italic}
+    .det-rule{width:28px;height:0.5px;background:var(--border2);margin:16px 0}
+    .det-sl{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px}
+    .det-desc{font-size:12px;color:var(--ink2);line-height:1.9;font-weight:300;flex:1;margin-bottom:28px}
+    .det-ctas{display:flex;flex-direction:column;gap:8px}
+    .btn-wpp-lg{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--sage);color:#fff;border:none;font-size:10px;font-family:'Raleway',sans-serif;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+    .btn-wpp-lg:hover{background:var(--sage2)}
+    .btn-outline{padding:12px;border:0.5px solid var(--border2);background:transparent;font-size:9px;font-family:'Raleway',sans-serif;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);cursor:pointer;transition:all .2s}
+    .btn-outline:hover{border-color:var(--ink2);color:var(--ink2)}
+    .det-note{margin-top:16px;padding:12px 14px;background:var(--warm);border-left:2px solid var(--border2)}
+    .det-note p{font-size:10px;color:var(--ink2);line-height:1.8;font-weight:300}
+    .det-note strong{font-weight:500;font-family:'Cormorant Garamond',serif;font-size:12px}
+
+    /* ── FOOTER ── */
+    .footer{border-top:0.5px solid var(--border);background:var(--warm);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink2)}
+    .footer-copy{font-size:8px;letter-spacing:0.1em;color:var(--ink4)}
+
+    /* ── TOAST ── */
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;font-size:10px;letter-spacing:0.1em;font-family:'Raleway',sans-serif;opacity:0;transition:opacity .25s;pointer-events:none;z-index:200;white-space:nowrap}
+    .toast.v{opacity:1}
+
+    /* ── PAGE TOGGLE ── */
+    .page{display:none}.page.v{display:block}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:640px){
+      .hero-inner{grid-template-columns:1fr}
+      .hero-right{height:180px;border-left:none;border-top:0.5px solid var(--border)}
+      .hero-left{padding:28px 22px}
+      .hero-h{font-size:32px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .card-emoji{font-size:40px}
+      .card-name{font-size:16px}
+      .card-desc{display:none}
+      .card-link{display:none}
+      .btn-wpp{font-size:8px;padding:7px 8px}
+      .det-body{grid-template-columns:1fr}
+      .det-l{min-height:220px;border-right:none;border-bottom:0.5px solid var(--border)}
+      .det-r{padding:24px 22px}
+      .det-title{font-size:28px}
+      .strip{gap:12px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-side">
+    <a href="https://instagram.com/SEU_INSTAGRAM" target="_blank" style="text-decoration:none">
+      <button class="nav-icon" title="Instagram">✦</button>
+    </a>
+  </div>
+  <div class="logo-wrap">
+    <div class="logo">Presente com Propósito</div>
+    <div class="logo-sub">cerâmicas artesanais</div>
+  </div>
+  <div class="nav-side right">
+    <button class="nav-icon" title="WhatsApp" onclick="openWhatsApp('Olá! Vim pelo site e gostaria de saber mais.')">◎</button>
+  </div>
+</nav>
+
+<!-- CATÁLOGO -->
+<div class="page v" id="pgCat">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Feito à mão com amor</div>
+        <div class="hero-h">Peças únicas,<br><em>dadas com<br>intenção.</em></div>
+        <div class="hero-p">Cada cerâmica nasce de um processo artesanal cuidadoso — pintada individualmente, feita para quem você ama.</div>
+        <button class="btn-hero" onclick="document.getElementById('cat').scrollIntoView({behavior:'smooth'})">Ver coleção</button>
+      </div>
+      <div class="hero-right">
+        <div class="hero-deco" style="width:220px;height:220px;top:-50px;right:-50px"></div>
+        <div class="hero-deco" style="width:110px;height:110px;bottom:10px;left:10px;opacity:.55"></div>
+        <span class="hero-img-placeholder">🫖</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="strip-item"><div class="s-dot"></div>100% Artesanal</div>
+    <div class="s-dot"></div>
+    <div class="strip-item"><div class="s-dot"></div>Peças únicas</div>
+    <div class="s-dot"></div>
+    <div class="strip-item"><div class="s-dot"></div>Personalização inclusa</div>
+    <div class="s-dot"></div>
+    <div class="strip-item"><div class="s-dot"></div>Encomenda via WhatsApp</div>
+  </div>
+
+  <div class="sec-hdr" id="cat">
+    <div class="sec-ey">Nossa coleção</div>
+    <div class="sec-title">Escolha a peça <em>certa<br>para cada momento</em></div>
+    <div class="sec-rule"></div>
+  </div>
+
+  <div class="filter-row" id="frow"></div>
+  <div class="grid" id="grid">
+    <div class="loading-state"><p>Carregando coleção…</p></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">Presente com Propósito</div>
+    <div class="footer-copy">Cerâmicas artesanais · feitas à mão</div>
+  </div>
+</div>
+
+<!-- DETALHE -->
+<div class="page" id="pgDet">
+  <div class="det-nav">
+    <button class="back" onclick="gocat()">← Voltar</button>
+    <div class="bc">Coleção · <b id="dBc"></b></div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="det-body">
+    <div class="det-l" id="dImgWrap">
+      <div class="det-deco" style="width:280px;height:280px;top:-70px;left:-70px"></div>
+      <div class="det-deco" style="width:160px;height:160px;bottom:-20px;right:-20px;opacity:.5"></div>
+      <div class="det-emoji" id="dEmo"></div>
+    </div>
+    <div class="det-r">
+      <div class="det-ey" id="dCat"></div>
+      <div class="det-title" id="dName"></div>
+      <div class="det-rule"></div>
+      <div class="det-sl">Sobre a peça</div>
+      <div class="det-desc" id="dDesc"></div>
+      <div class="det-ctas">
+        <button class="btn-wpp-lg" id="dWpp">
+          <svg style="width:13px;height:13px;fill:#fff;flex-shrink:0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Encomendar pelo WhatsApp
+        </button>
+        <button class="btn-outline" id="dShare">Compartilhar esta peça</button>
+      </div>
+      <div class="det-note">
+        <p><strong>Personalização inclusa.</strong><br>Ao entrar em contato você pode solicitar ajustes de cor, nome ou motivo — cada peça é criada especialmente para você.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/supabase.js"></script>
+<script>
+  // ─── Ícones fallback por categoria ───
+  const IC = { 'Canecas':'🫖', 'Pratos':'🍽️', 'Xícaras':'☕', 'Conjuntos':'🎁' };
+  const BG = { 'Canecas':'#EDE3D5', 'Pratos':'#E8DDD0', 'Xícaras':'#EAE0D4', 'Conjuntos':'#E5D9C8' };
+
+  // ─── Número de WhatsApp (formato internacional sem + ou espaços) ───
+  const WPP_NUMBER = '5511999999999'; // ← substitua pelo número real
+
+  let allProducts = [];
+  let currentFilter = 'Todos';
+
+  // ─── INICIALIZAÇÃO ───
+  async function init() {
+    try {
+      const data = await db.fetch('/produtos?order=criado_em.asc&disponivel=eq.true');
+      allProducts = data || [];
+      render();
+    } catch (e) {
+      document.getElementById('grid').innerHTML =
+        '<div class="loading-state"><p>Não foi possível carregar os produtos.</p></div>';
+      console.error(e);
+    }
+  }
+
+  // ─── NAVEGAÇÃO ───
+  function gocat() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('v'));
+    document.getElementById('pgCat').classList.add('v');
+    window.scrollTo(0, 0);
+  }
+
+  // ─── FILTROS E GRID ───
+  function setFilter(f) { currentFilter = f; render(); }
+
+  function render() {
+    const cats = ['Todos', ...new Set(allProducts.map(p => p.categoria))];
+    document.getElementById('frow').innerHTML = cats.map(c =>
+      `<button class="ftab ${c === currentFilter ? 'on' : ''}" onclick="setFilter('${c}')">${c}</button>`
+    ).join('');
+
+    const list = currentFilter === 'Todos'
+      ? allProducts
+      : allProducts.filter(p => p.categoria === currentFilter);
+
+    if (!list.length) {
+      document.getElementById('grid').innerHTML =
+        '<div class="empty-state"><p>Nenhuma peça encontrada nesta categoria.</p></div>';
+      return;
+    }
+
+    document.getElementById('grid').innerHTML = list.map(p => {
+      const bg = BG[p.categoria] || '#EDE3D5';
+      const hasPhoto = p.foto_url;
+      return `
+        <div class="card ${!p.disponivel ? 'off' : ''}" onclick="openDetail(${p.id})">
+          <div class="card-img" style="background:${bg}">
+            ${hasPhoto
+              ? `<img class="card-photo" src="${p.foto_url}" alt="${p.nome}" loading="lazy" />`
+              : `
+                <div class="card-img-bg" style="background:${bg}"></div>
+                <div class="c-ring" style="width:100px;height:100px"></div>
+                <div class="c-ring" style="width:145px;height:145px;opacity:.4"></div>
+                <div class="card-emoji">${IC[p.categoria] || '🎨'}</div>
+              `
+            }
+            <div class="card-hover-cta"><div class="hover-pill">Ver detalhes</div></div>
+            ${!p.disponivel ? '<div class="unavail-pill">Indisponível</div>' : ''}
+          </div>
+          <div class="card-body">
+            <div class="card-cat">${p.categoria}</div>
+            <div class="card-name">${p.nome}</div>
+            <div class="card-desc">${(p.descricao || '').slice(0, 80)}…</div>
+            <div class="card-action">
+              <button class="btn-wpp" onclick="event.stopPropagation();doWpp(${p.id})">
+                <svg style="width:10px;height:10px;fill:#fff;flex-shrink:0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Encomendar
+              </button>
+              <button class="card-link" onclick="event.stopPropagation();openDetail(${p.id})">ver mais →</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ─── DETALHE ───
+  function openDetail(id) {
+    const p = allProducts.find(x => x.id === id);
+    if (!p) return;
+
+    document.getElementById('dBc').textContent = p.nome;
+    document.getElementById('dCat').textContent = p.categoria;
+    document.getElementById('dName').innerHTML = p.nome.replace(/(\S+)$/, '<em>$1</em>');
+    document.getElementById('dDesc').textContent = p.descricao || '';
+
+    const wrap = document.getElementById('dImgWrap');
+    const emo  = document.getElementById('dEmo');
+    if (p.foto_url) {
+      emo.textContent = '';
+      // remove foto anterior se existir
+      wrap.querySelectorAll('.det-photo').forEach(e => e.remove());
+      const img = document.createElement('img');
+      img.className = 'det-photo';
+      img.src = p.foto_url;
+      img.alt = p.nome;
+      wrap.appendChild(img);
+    } else {
+      wrap.querySelectorAll('.det-photo').forEach(e => e.remove());
+      emo.textContent = IC[p.categoria] || '🎨';
+    }
+
+    document.getElementById('dWpp').onclick = () => doWpp(id);
+    document.getElementById('dShare').onclick = () => {
+      navigator.clipboard?.writeText(window.location.href).then(() => showToast('Link copiado!'));
+    };
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('v'));
+    document.getElementById('pgDet').classList.add('v');
+    window.scrollTo(0, 0);
+  }
+
+  // ─── WHATSAPP ───
+  function openWhatsApp(msg) {
+    window.open(`https://wa.me/${WPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function doWpp(id) {
+    const p = allProducts.find(x => x.id === id);
+    const msg = `Olá! Tenho interesse na peça *${p.nome}* (${p.categoria}). Poderia me dar mais informações?`;
+    openWhatsApp(msg);
+  }
+
+  // ─── TOAST ───
+  function showToast(m) {
+    const t = document.getElementById('toast');
+    t.textContent = m; t.classList.add('v');
+    setTimeout(() => t.classList.remove('v'), 2800);
+  }
+
+  init();
+</script>
+</body>
+</html>

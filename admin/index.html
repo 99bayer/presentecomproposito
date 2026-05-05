@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Presente com Propósito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#FAF7F4;--warm:#F4EDE4;--warmer:#EDE0D2;
+      --border:#E0D4C5;--border2:#D4C5B0;
+      --ink:#2C2218;--ink2:#6B5744;--ink3:#A08878;--ink4:#C4B0A0;
+      --sage:#7A9478;--sage2:#5E7A5C;
+      --danger:#A85858;--danger2:#8C3F3F;
+      --surf:#FFFFFF;
+    }
+    body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+    /* ── TELA DE LOGIN ── */
+    #pgLogin{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+    .login-card{background:var(--surf);border:0.5px solid var(--border);padding:40px 36px;width:100%;max-width:360px}
+    .login-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink);text-align:center;margin-bottom:4px}
+    .login-sub{font-size:8px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink3);text-align:center;margin-bottom:32px}
+    .login-rule{width:28px;height:0.5px;background:var(--border2);margin:0 auto 32px}
+    .form-label{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:8px}
+    .form-input{width:100%;padding:10px 12px;border:0.5px solid var(--border);background:var(--bg);font-family:'Raleway',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:border-color .2s;margin-bottom:16px}
+    .form-input:focus{border-color:var(--ink2)}
+    .btn-login{width:100%;padding:12px;background:var(--ink);color:var(--bg);border:none;font-size:10px;font-family:'Raleway',sans-serif;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:4px}
+    .btn-login:hover{background:var(--ink2)}
+    .login-error{font-size:10px;color:var(--danger);text-align:center;margin-top:12px;min-height:16px}
+
+    /* ── PAINEL ── */
+    #pgAdmin{display:none}
+    .admin-nav{background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:54px;position:sticky;top:0;z-index:50}
+    .admin-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+    .admin-logo span{font-size:9px;letter-spacing:0.2em;color:rgba(255,255,255,0.35);margin-left:10px;vertical-align:middle;font-family:'Raleway',sans-serif}
+    .nav-actions{display:flex;gap:10px;align-items:center}
+    .btn-nav{padding:6px 16px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-family:'Raleway',sans-serif;cursor:pointer;border:none;transition:all .2s}
+    .btn-novo{background:var(--sage);color:#fff}.btn-novo:hover{background:var(--sage2)}
+    .btn-sair{background:transparent;color:rgba(255,255,255,0.45);border:0.5px solid rgba(255,255,255,0.15)}.btn-sair:hover{color:#fff;border-color:rgba(255,255,255,0.5)}
+
+    .admin-body{padding:28px;max-width:1100px;margin:0 auto}
+
+    /* STATS */
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+    .stat-card{background:var(--surf);border:0.5px solid var(--border);padding:18px 20px}
+    .stat-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--ink);line-height:1}
+    .stat-l{font-size:8px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+
+    /* TABLE */
+    .table-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .table-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--ink)}
+    .search-input{padding:7px 12px;border:0.5px solid var(--border);background:var(--bg);font-family:'Raleway',sans-serif;font-size:11px;color:var(--ink);outline:none;width:200px}
+    .search-input:focus{border-color:var(--ink2)}
+
+    table{width:100%;border-collapse:collapse;background:var(--surf);border:0.5px solid var(--border)}
+    thead th{background:var(--warm);padding:10px 14px;text-align:left;font-size:8px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink3);border-bottom:0.5px solid var(--border);font-weight:400}
+    tbody td{padding:12px 14px;border-bottom:0.5px solid var(--border);font-size:12px;color:var(--ink);vertical-align:middle}
+    tbody tr:last-child td{border-bottom:none}
+    tbody tr:hover td{background:var(--bg)}
+
+    .td-foto{width:52px}
+    .produto-thumb{width:42px;height:42px;object-fit:cover;border:0.5px solid var(--border)}
+    .produto-thumb-placeholder{width:42px;height:42px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:20px;border:0.5px solid var(--border)}
+
+    .pill{display:inline-block;padding:3px 10px;font-size:8px;letter-spacing:0.1em;text-transform:uppercase}
+    .pill-on{background:#EBF3E8;color:#3D6B35}
+    .pill-off{background:#F5EBEB;color:#8C3F3F}
+
+    .td-actions{display:flex;gap:6px}
+    .btn-action{padding:5px 12px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;font-family:'Raleway',sans-serif;border:0.5px solid var(--border);background:transparent;cursor:pointer;transition:all .2s;color:var(--ink3)}
+    .btn-action:hover{background:var(--warm);color:var(--ink);border-color:var(--border2)}
+    .btn-action.danger:hover{background:#F5EBEB;color:var(--danger);border-color:#D4AAAA}
+
+    /* MODAL */
+    .modal-bg{display:none;position:fixed;inset:0;background:rgba(44,34,24,0.5);z-index:100;align-items:center;justify-content:center;padding:20px}
+    .modal-bg.open{display:flex}
+    .modal{background:var(--surf);border:0.5px solid var(--border);width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:0.5px solid var(--border)}
+    .modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--ink)}
+    .modal-close{background:none;border:none;cursor:pointer;font-size:16px;color:var(--ink3);line-height:1;padding:2px}
+    .modal-body{padding:24px}
+    .form-row{margin-bottom:18px}
+    .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+    select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A08878' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
+    textarea.form-input{resize:vertical;min-height:90px}
+
+    .upload-area{border:0.5px dashed var(--border2);background:var(--warm);padding:20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+    .upload-area:hover{border-color:var(--ink2);background:var(--warmer)}
+    .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-text{font-size:10px;color:var(--ink3);letter-spacing:0.1em}
+    .upload-preview{width:80px;height:80px;object-fit:cover;border:0.5px solid var(--border);display:none;margin:10px auto 0}
+
+    .toggle-row{display:flex;align-items:center;gap:10px}
+    .toggle{position:relative;width:38px;height:20px;flex-shrink:0}
+    .toggle input{opacity:0;width:0;height:0}
+    .toggle-slider{position:absolute;inset:0;background:var(--border2);border-radius:20px;cursor:pointer;transition:background .2s}
+    .toggle-slider::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s}
+    .toggle input:checked + .toggle-slider{background:var(--sage)}
+    .toggle input:checked + .toggle-slider::before{transform:translateX(18px)}
+    .toggle-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink2)}
+
+    .modal-footer{padding:16px 24px;border-top:0.5px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+    .btn-cancel{padding:9px 20px;border:0.5px solid var(--border2);background:transparent;font-size:9px;font-family:'Raleway',sans-serif;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);cursor:pointer;transition:all .2s}
+    .btn-cancel:hover{border-color:var(--ink2);color:var(--ink2)}
+    .btn-salvar{padding:9px 24px;background:var(--sage);color:#fff;border:none;font-size:9px;font-family:'Raleway',sans-serif;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+    .btn-salvar:hover{background:var(--sage2)}
+    .btn-salvar:disabled{opacity:.5;cursor:not-allowed}
+
+    /* TOAST */
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:10px 20px;font-size:10px;letter-spacing:0.1em;font-family:'Raleway',sans-serif;opacity:0;transition:opacity .25s;pointer-events:none;z-index:200;white-space:nowrap}
+    .toast.success{background:var(--sage);color:#fff}
+    .toast.error{background:var(--danger);color:#fff}
+    .toast.v{opacity:1}
+
+    @media(max-width:640px){
+      .stats-row{grid-template-columns:repeat(2,1fr)}
+      .admin-body{padding:16px}
+      .form-row-2{grid-template-columns:1fr}
+      .search-input{width:140px}
+      .table-header{flex-direction:column;align-items:flex-start;gap:10px}
+      thead th:nth-child(3),thead th:nth-child(4),tbody td:nth-child(3),tbody td:nth-child(4){display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="pgLogin">
+  <div class="login-card">
+    <div class="login-logo">Presente com Propósito</div>
+    <div class="login-sub">Painel administrativo</div>
+    <div class="login-rule"></div>
+    <label class="form-label">Senha</label>
+    <input class="form-input" type="password" id="pwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button class="btn-login" onclick="doLogin()">Entrar</button>
+    <div class="login-error" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ── PAINEL ── -->
+<div id="pgAdmin">
+  <nav class="admin-nav">
+    <div class="admin-logo">Presente com Propósito <span>Admin</span></div>
+    <div class="nav-actions">
+      <button class="btn-nav btn-novo" onclick="openModal()">+ Novo produto</button>
+      <button class="btn-nav btn-sair" onclick="doLogout()">Sair</button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-n" id="stTotal">—</div><div class="stat-l">Total de peças</div></div>
+      <div class="stat-card"><div class="stat-n" id="stAtivos">—</div><div class="stat-l">Disponíveis</div></div>
+      <div class="stat-card"><div class="stat-n" id="stInativos">—</div><div class="stat-l">Indisponíveis</div></div>
+      <div class="stat-card"><div class="stat-n" id="stCats">—</div><div class="stat-l">Categorias</div></div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-header">
+      <div class="table-title">Produtos cadastrados</div>
+      <input class="search-input" type="search" placeholder="Buscar produto…" oninput="filterTable(this.value)" />
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="td-foto"></th>
+          <th>Produto</th>
+          <th>Categoria</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tBody">
+        <tr><td colspan="5" style="text-align:center;padding:30px;font-size:11px;color:var(--ink3)">Carregando…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── MODAL ── -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Novo produto</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="fId" />
+
+      <div class="form-row-2">
+        <div>
+          <label class="form-label">Nome do produto *</label>
+          <input class="form-input" id="fNome" placeholder="Ex: Caneca Jardim Secreto" />
+        </div>
+        <div>
+          <label class="form-label">Categoria *</label>
+          <select class="form-input" id="fCat">
+            <option value="">Selecione…</option>
+            <option>Canecas</option>
+            <option>Pratos</option>
+            <option>Xícaras</option>
+            <option>Conjuntos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-input" id="fDesc" placeholder="Descreva a peça, o processo artesanal e o que a torna especial…"></textarea>
+      </div>
+
+      <div class="form-row">
+        <label class="form-label">Foto do produto</label>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="fFoto" accept="image/*" onchange="previewFoto(this)" />
+          <div class="upload-text">Clique para selecionar uma foto<br><span style="opacity:.6;font-size:9px">JPG ou PNG · máx. 5MB</span></div>
+          <img class="upload-preview" id="fotoPreview" alt="Preview" />
+        </div>
+        <input type="hidden" id="fFotoUrl" />
+      </div>
+
+      <div class="form-row">
+        <div class="toggle-row">
+          <label class="toggle">
+            <input type="checkbox" id="fDisponivel" checked />
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label">Disponível no catálogo</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-salvar" id="btnSalvar" onclick="salvarProduto()">Salvar produto</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../js/supabase.js"></script>
+<script>
+  let produtos = [];
+  let searchTerm = '';
+
+  // ─── LOGIN ───
+  function doLogin() {
+    const pw = document.getElementById('pwInput').value;
+    if (pw === ADMIN_PASSWORD) {
+      document.getElementById('pgLogin').style.display = 'none';
+      document.getElementById('pgAdmin').style.display = 'block';
+      sessionStorage.setItem('admin_auth', '1');
+      loadProdutos();
+    } else {
+      document.getElementById('loginErr').textContent = 'Senha incorreta.';
+      document.getElementById('pwInput').value = '';
+    }
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem('admin_auth');
+    document.getElementById('pgAdmin').style.display = 'none';
+    document.getElementById('pgLogin').style.display = 'flex';
+    document.getElementById('pwInput').value = '';
+  }
+
+  // Mantém sessão ao recarregar a página
+  if (sessionStorage.getItem('admin_auth')) {
+    document.getElementById('pgLogin').style.display = 'none';
+    document.getElementById('pgAdmin').style.display = 'block';
+    loadProdutos();
+  }
+
+  // ─── CARREGAR PRODUTOS ───
+  async function loadProdutos() {
+    try {
+      const data = await db.fetch('/produtos?order=criado_em.desc');
+      produtos = data || [];
+      renderStats();
+      renderTable();
+    } catch (e) {
+      showToast('Erro ao carregar produtos.', 'error');
+      console.error(e);
+    }
+  }
+
+  // ─── STATS ───
+  function renderStats() {
+    const ativos   = produtos.filter(p => p.disponivel).length;
+    const inativos = produtos.length - ativos;
+    const cats     = new Set(produtos.map(p => p.categoria)).size;
+    document.getElementById('stTotal').textContent   = produtos.length;
+    document.getElementById('stAtivos').textContent  = ativos;
+    document.getElementById('stInativos').textContent = inativos;
+    document.getElementById('stCats').textContent    = cats;
+  }
+
+  // ─── TABELA ───
+  function filterTable(val) { searchTerm = val.toLowerCase(); renderTable(); }
+
+  function renderTable() {
+    const list = produtos.filter(p =>
+      !searchTerm || p.nome.toLowerCase().includes(searchTerm) || (p.categoria||'').toLowerCase().includes(searchTerm)
+    );
+
+    if (!list.length) {
+      document.getElementById('tBody').innerHTML =
+        '<tr><td colspan="5" style="text-align:center;padding:30px;font-size:11px;color:var(--ink3)">Nenhum produto encontrado.</td></tr>';
+      return;
+    }
+
+    document.getElementById('tBody').innerHTML = list.map(p => `
+      <tr>
+        <td class="td-foto">
+          ${p.foto_url
+            ? `<img class="produto-thumb" src="${p.foto_url}" alt="${p.nome}" />`
+            : `<div class="produto-thumb-placeholder">${p.categoria==='Canecas'?'🫖':p.categoria==='Pratos'?'🍽️':p.categoria==='Xícaras'?'☕':'🎁'}</div>`
+          }
+        </td>
+        <td><strong style="font-weight:500">${p.nome}</strong><br><span style="font-size:10px;color:var(--ink3)">${(p.descricao||'').slice(0,50)}…</span></td>
+        <td>${p.categoria || '—'}</td>
+        <td><span class="pill ${p.disponivel ? 'pill-on' : 'pill-off'}">${p.disponivel ? 'Disponível' : 'Indisponível'}</span></td>
+        <td>
+          <div class="td-actions">
+            <button class="btn-action" onclick="toggleDisponivel(${p.id},${p.disponivel})">${p.disponivel ? 'Pausar' : 'Ativar'}</button>
+            <button class="btn-action" onclick="editarProduto(${p.id})">Editar</button>
+            <button class="btn-action danger" onclick="excluirProduto(${p.id},'${p.nome.replace(/'/g,"\\'")}')">Excluir</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // ─── MODAL ───
+  function openModal(id) {
+    document.getElementById('fId').value = id || '';
+    document.getElementById('modalTitle').textContent = id ? 'Editar produto' : 'Novo produto';
+    if (!id) {
+      document.getElementById('fNome').value = '';
+      document.getElementById('fCat').value = '';
+      document.getElementById('fDesc').value = '';
+      document.getElementById('fDisponivel').checked = true;
+      document.getElementById('fFotoUrl').value = '';
+      document.getElementById('fotoPreview').style.display = 'none';
+      document.getElementById('fFoto').value = '';
+    }
+    document.getElementById('modalBg').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalBg').classList.remove('open');
+  }
+
+  function editarProduto(id) {
+    const p = produtos.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('fId').value = p.id;
+    document.getElementById('fNome').value = p.nome;
+    document.getElementById('fCat').value = p.categoria;
+    document.getElementById('fDesc').value = p.descricao || '';
+    document.getElementById('fDisponivel').checked = p.disponivel;
+    document.getElementById('fFotoUrl').value = p.foto_url || '';
+    const prev = document.getElementById('fotoPreview');
+    if (p.foto_url) { prev.src = p.foto_url; prev.style.display = 'block'; }
+    else { prev.style.display = 'none'; }
+    document.getElementById('modalTitle').textContent = 'Editar produto';
+    document.getElementById('modalBg').classList.add('open');
+  }
+
+  function previewFoto(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    const prev = document.getElementById('fotoPreview');
+    prev.src = URL.createObjectURL(file);
+    prev.style.display = 'block';
+  }
+
+  // ─── SALVAR ───
+  async function salvarProduto() {
+    const nome = document.getElementById('fNome').value.trim();
+    const cat  = document.getElementById('fCat').value;
+    if (!nome || !cat) { showToast('Preencha nome e categoria.', 'error'); return; }
+
+    const btn = document.getElementById('btnSalvar');
+    btn.disabled = true;
+    btn.textContent = 'Salvando…';
+
+    try {
+      let fotoUrl = document.getElementById('fFotoUrl').value;
+
+      // Upload de foto se selecionada
+      const fotoFile = document.getElementById('fFoto').files[0];
+      if (fotoFile) {
+        const ext  = fotoFile.name.split('.').pop();
+        const path = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+        fotoUrl = await db.uploadFile('fotos-produtos', path, fotoFile);
+      }
+
+      const payload = {
+        nome,
+        categoria: cat,
+        descricao: document.getElementById('fDesc').value.trim(),
+        disponivel: document.getElementById('fDisponivel').checked,
+        foto_url: fotoUrl || null,
+      };
+
+      const id = document.getElementById('fId').value;
+      if (id) {
+        await db.fetch(`/produtos?id=eq.${id}`, {
+          method: 'PATCH',
+          prefer: 'return=minimal',
+          body: JSON.stringify(payload),
+        });
+        showToast('Produto atualizado!', 'success');
+      } else {
+        await db.fetch('/produtos', {
+          method: 'POST',
+          prefer: 'return=minimal',
+          body: JSON.stringify(payload),
+        });
+        showToast('Produto criado!', 'success');
+      }
+
+      closeModal();
+      loadProdutos();
+    } catch (e) {
+      showToast('Erro ao salvar. Tente novamente.', 'error');
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Salvar produto';
+    }
+  }
+
+  // ─── TOGGLE DISPONIBILIDADE ───
+  async function toggleDisponivel(id, atual) {
+    try {
+      await db.fetch(`/produtos?id=eq.${id}`, {
+        method: 'PATCH',
+        prefer: 'return=minimal',
+        body: JSON.stringify({ disponivel: !atual }),
+      });
+      showToast(atual ? 'Produto pausado.' : 'Produto ativado.', 'success');
+      loadProdutos();
+    } catch (e) {
+      showToast('Erro ao atualizar status.', 'error');
+    }
+  }
+
+  // ─── EXCLUIR ───
+  async function excluirProduto(id, nome) {
+    if (!confirm(`Excluir "${nome}"? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await db.fetch(`/produtos?id=eq.${id}`, { method: 'DELETE' });
+      showToast('Produto excluído.', 'success');
+      loadProdutos();
+    } catch (e) {
+      showToast('Erro ao excluir.', 'error');
+    }
+  }
+
+  // ─── TOAST ───
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} v`;
+    setTimeout(() => t.classList.remove('v'), 3000);
+  }
+
+  // Fecha modal clicando fora
+  document.getElementById('modalBg').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
